@@ -1,0 +1,9 @@
+<p>Hi {{ username }},</p>
+
+<p>
+  Hoşgeldin, Lütfen mail adresindeki linke tıklayarak hesabını aktif et:
+</p>
+
+<p>
+  <a href="{{ appUrl('register/confirm/' + confirmation_token) }}">Hesabımı Aktif Et</a>
+</p>

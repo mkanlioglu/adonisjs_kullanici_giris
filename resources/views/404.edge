@@ -1,0 +1,17 @@
+@layout('layout.app')
+
+@section('content')
+  <section class="section is-medium">
+    <div class="container">
+      <div class="columns is-vcentered">
+        <div class="column has-text-centered">
+          <h1 class="title">404 Sayfa Bulunamadı</h1>
+          <p class="subtitle">Lütfen adres çubuğu ile oynamayınız.</p>
+        </div>
+        <div class="column has-text-centered">
+          <img src="{{ assetsUrl('404-robot.gif') }}" />
+        </div>
+      </div>
+    </div>
+  </section>
+@endsection
