@@ -11,7 +11,7 @@ class RegisterController {
   }
 
   async register ({ request, session, response }) {
-    // validate form inputs
+    // Validasyon
     const validation = await validateAll(request.all(), {
       username: 'required|unique:users,username',
       email: 'required|email|unique:users,email',
@@ -24,7 +24,7 @@ class RegisterController {
       return response.redirect('back')
     }
 
-    // create user
+    // Kullanıcı ekle
     const user = await User.create({
       username: request.input('username'),
       email: request.input('email'),
@@ -32,41 +32,41 @@ class RegisterController {
       confirmation_token: randomString({ length: 40 })
     })
 
-    // send confirmation email
+    // Doğrulama maili gönder
     await Mail.send('auth.emails.confirm_email', user.toJSON(), message => {
       message
         .to(user.email)
-        .from('hello@adonisjs.com')
+        .from('mkanlioglu@yandex.com')
         .subject('Lütfen e-posta adresinizi doğrulayın.')
     })
 
-    // display success message
+    // Başarılı bildirimi
     session.flash({
       notification: {
-        type: 'Başarılı',
+        type: 'success',
         message: 'Kayıt tamamlandı! E-posta adresinize bir mail gönderildi, lütfen e-posta adresinizi doğrulayın.'
       }
     })
 
-    return response.redirect('back')
+    return response.redirect('/login')
   }
 
   async confirmEmail ({ params, session, response }) {
-    // get user with the cinfirmation token
+
     const user = await User.findBy('confirmation_token', params.token)
 
-    // set confirmation to null and is_active to true
+    
     user.confirmation_token = null
     user.is_active = true
 
-    // persist user to database
+    
     await user.save()
 
-    // display success message
+    // Başarılı bildirimi
     session.flash({
       notification: {
-        type: 'Başarılı',
-        message: 'E-posta adresiniz doğrulandı.'
+        type: 'success',
+        message: 'E-posta adresiniz başarıyla doğrulandı.'
       }
     })
 
