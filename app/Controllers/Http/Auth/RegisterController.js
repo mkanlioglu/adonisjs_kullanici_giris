@@ -29,7 +29,8 @@ class RegisterController {
       username: request.input('username'),
       email: request.input('email'),
       password: request.input('password'),
-      confirmation_token: randomString({ length: 40 })
+      confirmation_token: randomString({ length: 40 }),
+      is_active: true
     })
 
     // Doğrulama maili gönder
